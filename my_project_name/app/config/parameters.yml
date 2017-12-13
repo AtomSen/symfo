@@ -1,0 +1,12 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: 3306
+    database_name: doctrine
+    database_user: root
+    database_password: parola123
+    mailer_transport: gmail
+    mailer_host: 127.0.0.1
+    mailer_user: cevafain90@gmail.com
+    mailer_password: cevafain
+    secret: 67c61d521217acd8f7eb35d2a6103b993f35f68b

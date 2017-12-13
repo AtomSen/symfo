@@ -1,0 +1,7 @@
+
+app:
+    resource: '@AppBundle/Routing/electronic_routing.yml'
+
+
+
+

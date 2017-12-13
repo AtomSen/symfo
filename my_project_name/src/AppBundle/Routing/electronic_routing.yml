@@ -1,0 +1,31 @@
+
+getById:
+    path:     /electronics/{id}
+    defaults: { _controller: ElectronicController:getElectronicById}
+    methods:  [GET]
+    requirements:
+            id: '\d+'
+
+getAll:
+    path:     /electronics
+    defaults: { _controller: ElectronicController:getAllElectronics}
+    methods:  [GET]
+
+add:
+    path:     /electronics
+    defaults: { _controller: ElectronicController:addElectronics }
+    methods:  [POST]
+
+delete:
+    path:     /electronics/{id}
+    defaults: { _controller: ElectronicController:deleteElectronicById }
+    methods:  [DELETE]
+    requirements:
+            id: '\d+'
+
+update:
+    path:     /electronics/{id}
+    defaults: { _controller: ElectronicController:updateElectronic }
+    methods:  [PUT,PATCH]
+    requirements:
+            id: '\d+'
