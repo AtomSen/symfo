@@ -1,2 +1,5 @@
 /my_project_name/.idea
 /.idea
+/var
+/vendor
+/web
