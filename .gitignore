@@ -3,10 +3,6 @@
 # Email spool folder
 /app/spool
 
-# Cache, session files and logs (Symfony3)
-/my_project_name/var/cache
-/my_project_name/var/logs
-/my_project_name/var/sessions
 
 # Managed by Composer
 /my_project_name/app/bootstrap.php.cache
@@ -22,3 +18,6 @@
 
 # Build data
 /my_project_name/build
+/my_project_name/var/sessions
+/my_project_name/var/logs
+/my_project_name/var/cache
