@@ -1,8 +1,24 @@
 /my_project_name/.idea
 /.idea
-/var/cache/*
-/var/logs/*
-/var/sessions/*
-/vendor/
-/build/
-/web
+# Email spool folder
+/app/spool
+
+# Cache, session files and logs (Symfony3)
+/my_project_name/var/cache
+/my_project_name/var/logs
+/my_project_name/var/sessions
+
+# Managed by Composer
+/my_project_name/app/bootstrap.php.cache
+/my_project_name/var/bootstrap.php.cache
+/my_project_name/bin
+!/my_project_name/bin/console
+!/my_project_name/bin/symfony_requirements
+/my_project_name/vendor
+
+# Assets and user uploads
+/my_project_name/web/bundles
+/my_project_name/web/uploads
+
+# Build data
+/my_project_name/build
