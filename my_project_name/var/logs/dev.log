@@ -9421,3 +9421,6 @@
 [2017-12-14 13:17:58] request.INFO: Matched route "getAll". {"route":"getAll","route_parameters":{"_controller":"ElectronicController:getAllElectronics","_route":"getAll"},"request_uri":"http://symfony.dev/app_dev.php/electronics","method":"GET"} []
 [2017-12-14 13:17:58] security.INFO: Populated the TokenStorage with an anonymous Token. [] []
 [2017-12-14 13:18:01] doctrine.DEBUG: SELECT t0.id AS id_1, t0.brand AS brand_2, t0.model AS model_3, t0.price AS price_4 FROM electronic t0 [] []
+[2017-12-14 16:38:36] request.INFO: Matched route "getAll". {"route":"getAll","route_parameters":{"_controller":"ElectronicController:getAllElectronics","_route":"getAll"},"request_uri":"http://symfony.dev/app_dev.php/electronics","method":"GET"} []
+[2017-12-14 16:38:36] security.INFO: Populated the TokenStorage with an anonymous Token. [] []
+[2017-12-14 16:38:36] doctrine.DEBUG: SELECT t0.id AS id_1, t0.brand AS brand_2, t0.model AS model_3, t0.price AS price_4 FROM electronic t0 [] []

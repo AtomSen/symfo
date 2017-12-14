@@ -6,3 +6,4 @@ fed75e,172.18.0.1,GET,http://symfony.dev/app_dev.php/electronics,1513169811,,200
 d659bf,172.18.0.1,GET,http://symfony.dev/app_dev.php/,1513250255,602e7c,200
 602e7c,172.18.0.1,GET,http://symfony.dev/app_dev.php/,1513250255,,404
 12156a,172.18.0.1,GET,http://symfony.dev/app_dev.php/electronics,1513250283,,200
+ff4d58,172.18.0.1,GET,http://symfony.dev/app_dev.php/electronics,1513262316,,200
