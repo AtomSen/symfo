@@ -1,5 +1,8 @@
 /my_project_name/.idea
 /.idea
-/var
-/vendor
+/var/cache/*
+/var/logs/*
+/var/sessions/*
+/vendor/
+/build/
 /web
