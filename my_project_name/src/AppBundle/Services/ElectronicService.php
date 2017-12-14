@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
-class ElectronicService
+class ElectronicService implements ElectronicServiceInterface
 {
     
     private $repo;

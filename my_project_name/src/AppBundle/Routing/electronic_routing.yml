@@ -26,6 +26,6 @@ delete:
 update:
     path:     /electronics/{id}
     defaults: { _controller: ElectronicController:updateElectronic }
-    methods:  [PUT,PATCH]
+    methods:  [PUT]
     requirements:
             id: '\d+'

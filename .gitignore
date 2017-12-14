@@ -21,3 +21,6 @@
 /my_project_name/var/sessions
 /my_project_name/var/logs
 /my_project_name/var/cache
+/my_project_name/var/sessions
+/my_project_name/var/logs
+/my_project_name/var/cache

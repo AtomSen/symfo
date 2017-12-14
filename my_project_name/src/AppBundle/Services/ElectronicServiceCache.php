@@ -12,7 +12,7 @@ namespace AppBundle\Services;
 use AppBundle\Entity\Electronic;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
-class ElectronicServiceCache
+class ElectronicServiceCache implements ElectronicServiceInterface
 {
     
     protected $service;
@@ -28,7 +28,7 @@ class ElectronicServiceCache
         $this->cache = $cache;
     }
     
-    public function getAll($filter)
+    public function getAll($filter = null)
     {
         
         if ($filter !== null) {
@@ -38,18 +38,19 @@ class ElectronicServiceCache
             if (!$items->isHit()) {//if filter is not cached , cahce filter and objets that should be in it
                 echo "did not hit";
                 $keyArray = array();
-                foreach ($this->service->getAll($filter) as $electronic) { //add un-cached objects to cache
+                $electronics = $this->service->getAll($filter);
+                foreach ($electronics as $electronic) { //add un-cached objects to cache
                     $id = (string)$electronic->getId();
-                    $this->addElectronicToCahce($this->service->getById($id));
+                    $this->addElectronicToCahce($electronic);
                     $keyArray[] = $id;
                 }
                 
                 if (0 < count($keyArray)) {//if there are items with given filter save their ids to cache
                     $items->set($keyArray);
                     $this->cache->save($items);
-                } else {
-                    return [];
                 }
+                
+                return $electronics;
             }
             $filteredElectronics = $this->cache->getItems(
                 $this->cache->getItem($filter)->get()
@@ -74,8 +75,10 @@ class ElectronicServiceCache
     {
         
         $cacheElectronic = $this->cache->getItem((string)$electronic->getId());
-        $cacheElectronic->set($electronic);
-        $this->cache->save($cacheElectronic);
+        if (!$cacheElectronic->isHit()) {
+            $cacheElectronic->set($electronic);
+            $this->cache->save($cacheElectronic);
+        }
     }
     
     /**
@@ -84,9 +87,10 @@ class ElectronicServiceCache
      */
     public function getById($id)
     {
-        $this->addElectronicToCahce($this->service->getById($id));
+        $electronic = $this->service->getById($id);
+        $this->addElectronicToCahce($electronic);
         
-        return $this->cache->getItem($id)->get();
+        return $electronic;
     }
     
     /**
@@ -98,7 +102,7 @@ class ElectronicServiceCache
         $addedElectronicId = $this->service->addElectronic($electronic);
         $electronic->setId($addedElectronicId);
         $this->addElectronicToCahce($electronic);
-        $this->addKeyToFilteredCache($electronic);
+        $this->invalidateFilter($electronic);
         
         return $electronic->getId();
     }
@@ -106,17 +110,9 @@ class ElectronicServiceCache
     /**
      * @param $electronic Electronic
      */
-    private function addKeyToFilteredCache(Electronic $electronic)
+    private function invalidateFilter(Electronic $electronic)
     {
-        
-        $cachedFilter = $this->cache->getItem($electronic->getBrand());
-        if ($cachedFilter->isHit()) {
-            
-            $array = $cachedFilter->get();
-            $array[] = (string)$electronic->getId();
-            $cachedFilter->set($array);
-            $this->cache->save($cachedFilter);
-        }
+        $this->cache->deleteItem($electronic->getBrand());
     }
     
     /**
@@ -124,54 +120,19 @@ class ElectronicServiceCache
      */
     public function updateElectronic(Electronic $electronic)
     {
-        
         $this->service->updateElectronic($electronic);
-        $this->updateElectronicFromCache($electronic);
-        
-    }
-    
-    /**
-     * @param $electronic Electronic
-     */
-    private function updateElectronicFromCache(Electronic $electronic)
-    {
-        $item = $this->cache->getItem($electronic->getId());
-        if ($item->isHit() && $item->get()->getBrand() !== $electronic->getBrand()) {
-            $this->deleteKeyFromFilteredCache($item->getKey());
-            $this->addKeyToFilteredCache($electronic);
-            $item->set($electronic);
-            $this->cache->save($item);
-            
-            return;
-        }
-        
-        $this->addElectronicToCahce($electronic);
-        $this->addKeyToFilteredCache($electronic);
-        
-    }
-    
-    /**
-     * @param $id
-     */
-    private function deleteKeyFromFilteredCache($id)
-    {
-        $item = $this->cache->getItem($id);
-        if ($item->isHit()) {
-            $cachedFilter = $this->cache->getItem($item->get()->getBrand());
-            $array = $cachedFilter->get();
-            if (($key = array_search($item->getKey(), $array)) !== false) {
-                unset($array[$key]);
-            }
-            $cachedFilter->set($array);
-            $this->cache->save($cachedFilter);
-            $this->cache->deleteItem($id);
-        }
+        $this->cache->deleteItem($electronic->getId());
+        $this->invalidateFilter($electronic);
     }
     
     public function deleteElectronic($id)
     {
         $this->service->deleteElectronic($id);
-        $this->deleteKeyFromFilteredCache($id);
+        $item = $this->cache->getItem($id);
+        if ($item->isHit()) {
+            $this->invalidateFilter($item->get());
+            $this->cache->deleteItem($id);
+        }
     }
     
     
