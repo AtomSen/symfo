@@ -1,9 +1,0 @@
-e670dd,172.18.0.1,GET,http://symfony.dev/app_dev.php/electronics,1513169751,,200
-4bd819,172.18.0.1,GET,http://symfony.dev/app_dev.php/,1513169798,c1d57a,200
-c1d57a,172.18.0.1,GET,http://symfony.dev/app_dev.php/,1513169798,,404
-fed75e,172.18.0.1,GET,http://symfony.dev/app_dev.php/electronics,1513169811,,200
-24be3d,172.18.0.1,GET,http://symfony.dev/app_dev.php/electronics,1513170406,,200
-d659bf,172.18.0.1,GET,http://symfony.dev/app_dev.php/,1513250255,602e7c,200
-602e7c,172.18.0.1,GET,http://symfony.dev/app_dev.php/,1513250255,,404
-12156a,172.18.0.1,GET,http://symfony.dev/app_dev.php/electronics,1513250283,,200
-ff4d58,172.18.0.1,GET,http://symfony.dev/app_dev.php/electronics,1513262316,,200
