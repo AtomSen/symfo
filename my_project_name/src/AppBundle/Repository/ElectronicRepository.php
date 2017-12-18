@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 class ElectronicRepository implements Repository
 {
     private $registry;
-    
+
     /**
      * StudentRepo constructor.
      * @param $registry EntityManagerInterface
@@ -20,7 +20,7 @@ class ElectronicRepository implements Repository
     {
         $this->registry = $registry;
     }
-    
+
     /**
      * @param null $filter
      * @return array
@@ -40,7 +40,7 @@ class ElectronicRepository implements Repository
             return $qb->getQuery()->execute();
         }
     }
-    
+
     /**
      * @param $electronic Electronic
      * @return int
@@ -50,10 +50,10 @@ class ElectronicRepository implements Repository
     {
         $this->registry->persist($electronic);
         $this->registry->flush();
-        
+
         return $electronic->getId();
     }
-    
+
     /**
      * @param $id int
      */
@@ -65,7 +65,7 @@ class ElectronicRepository implements Repository
             ->setParameter('id', $id);
         $querry->getQuery()->execute();
     }
-    
+
     /**
      * @param $object Electronic
      * fully  replaces an electronic if all fields are given
@@ -86,17 +86,17 @@ class ElectronicRepository implements Repository
             }
             $this->registry->flush();
         } catch (ObjectNotFoundException $exception) {
-            
+
             //insert with id if it does not exist
             $this->registry->persist($object);
             //overwrites auto_increment
-            $metadata=$this->registry->getClassMetadata(get_class($object));
+            $metadata = $this->registry->getClassMetadata(get_class($object));
             $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
             $metadata->setIdGenerator(new AssignedGenerator());
             $this->registry->flush();
         }
     }
-    
+
     /**
      * @param $id int
      * @return null|object
@@ -109,8 +109,8 @@ class ElectronicRepository implements Repository
         if ($electronic == null) {
             throw new ObjectNotFoundException("Object does not exists!");
         }
-        
+
         return $electronic;
     }
-    
+
 }

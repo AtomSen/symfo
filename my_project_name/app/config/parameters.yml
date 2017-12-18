@@ -2,7 +2,7 @@
 parameters:
     database_host: 127.0.0.1
     database_port: 3306
-    database_name: doctrine
+    database_name: MyApp
     database_user: root
     database_password: parola123
     mailer_transport: gmail

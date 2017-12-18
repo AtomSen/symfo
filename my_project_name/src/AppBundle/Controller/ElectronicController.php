@@ -20,7 +20,7 @@ class ElectronicController
     private $service;
     private $serializer;
     private $cache;
-    
+
     /**
      * ElectronicController constructor.
      * @param ElectronicServiceCache $service
@@ -28,11 +28,11 @@ class ElectronicController
      */
     public function __construct(ElectronicServiceCache $service, Serializer $serializer)
     {
-        $this->cache=new FilesystemCache("Electronic");
+        $this->cache = new FilesystemCache("Electronic");
         $this->service = $service;
         $this->serializer = $serializer;
     }
-    
+
     /**
      * /electronics/{filter} GET
      * @param Request $request
@@ -50,16 +50,16 @@ class ElectronicController
         if ($response->isNotModified($request)) {
             return $response;
         } else {*/
-            $filter = $request->get('filter');
-            $response->setContent($this->serializer->serialize($this->service->
-            getAll($filter), 'json'));
-            $response->setStatusCode(Response::HTTP_OK);
-            $response->headers->set('Content-Type', 'application/json');
-            
-            return $response;
-       // }
+        $filter = $request->get('filter');
+        $response->setContent($this->serializer->serialize($this->service->
+        getAll($filter), 'json'));
+        $response->setStatusCode(Response::HTTP_OK);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+        // }
     }
-    
+
     /**
      * /electronics/{id} GET
      * @param int $id
@@ -67,19 +67,19 @@ class ElectronicController
      */
     public function getElectronicById($id)
     {
-        
+
         try {
-            $obj =$this->service->getById($id);// $this->service->getById($id);
+            $obj = $this->service->getById($id);// $this->service->getById($id);
             $JsonObject = $this->serializer->serialize($obj, 'json');
             $response = new Response($JsonObject, Response::HTTP_OK);
             $response->headers->set('Content-Type', 'application/json');
-        
+
             return $response;
         } catch (ObjectNotFoundException $exception) {
             return new Response(json_encode($exception->getMessage()), Response::HTTP_NOT_FOUND);
         }
     }
-    
+
     /**
      * /electronics POST
      * @param Request $request
@@ -88,7 +88,7 @@ class ElectronicController
     public function addElectronics(Request $request)
     {
         $content = $request->getContent();
-        
+
         $electronic = $this->serializer->deserialize($content, Electronic::class, 'json');
         try {
             /**
@@ -96,18 +96,18 @@ class ElectronicController
              */
             $id = $this->service->addElectronic($electronic);
             $response = new Response(json_encode('Object Added'), Response::HTTP_CREATED);
-            $response->headers->set('Location', $request->getUri().'/'.$id);
-            
-           // $this->cache->set('date', new \DateTime());
-            
+            $response->headers->set('Location', $request->getUri() . '/' . $id);
+
+            // $this->cache->set('date', new \DateTime());
+
             return $response;
         } catch (ObjectNotValidException $exception) {
             return new Response(json_encode($exception->getMessage()), Response::HTTP_BAD_REQUEST);
-        }catch (NotNullConstraintViolationException $exception){
+        } catch (NotNullConstraintViolationException $exception) {
             return new Response(json_encode("fields can`t be null"), Response::HTTP_BAD_REQUEST);
         }
     }
-    
+
     /**
      * /electronics/{id} DELETE
      * @param $id
@@ -115,14 +115,14 @@ class ElectronicController
      */
     public function deleteElectronicById($id)
     {
-       // $this->cache->set('date', new \DateTime());
-        
+        // $this->cache->set('date', new \DateTime());
+
         $this->service->deleteElectronic($id);
-        
+
         return new Response(null, Response::HTTP_NO_CONTENT);
-        
+
     }
-    
+
     /**
      * /electronics/{id} PUT
      * @param Request $request
@@ -136,18 +136,18 @@ class ElectronicController
          * @var $electronic Electronic
          */
         $electronic = $this->serializer->deserialize($content, Electronic::class, 'json');
-        
+
         $electronic->setId($id);
         try {
             $this->service->updateElectronic($electronic);
-            
+
             //$this->cache->set('date', new \DateTime());
-            
+
             return new Response(null, Response::HTTP_NO_CONTENT);
         } catch (ObjectNotValidException $exception) {
             return new Response($exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
-        
-        
+
+
     }
 }
