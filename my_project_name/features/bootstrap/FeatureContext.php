@@ -1,62 +1,40 @@
 <?php
 
-use Behat\Behat\Context\Context;
-use Behat\Behat\Tester\Exception\PendingException;
-use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Behat\Tester\Exception\PendingException;
+use AppBundle\Entity\Electronic;
+use Behat\Behat\Context\Context;
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext implements Context
 {
-    
-    private $shelf;
-    private $basket;
-    
-    public function __construct()
-    {
-        $this->shelf = new Shelf();
-        $this->basket = new Basket($this->shelf);
-    }
-    
+    private $table;
+    private  $currentCount;
+
     /**
-     * @Given there is a :product, which costs £:price
+     * @Given there are electronics:
      */
-    public function thereIsAWhichCostsPs($product, $price)
+    public function thereAreElectronics(TableNode $table)
     {
-        $this->shelf->setProductPrice($product, floatval($price));
-    }
-    
-    /**
-     * @When I add the :product to the basket
-     */
-    public function iAddTheToTheBasket($product)
-    {
-        $this->basket->addProduct($product);
-    }
-    
-    /**
-     * @Then I should have :count product(s) in the basket
-     */
-    public function iShouldHaveProductInTheBasket($count)
-    {
-        PHPUnit_Framework_Assert::assertCount(
-            intval($count),
-            $this->basket
-        );
-    }
-    
-    /**
-     * @Then the overall basket price should be £:price
-     */
-    public function theOverallBasketPriceShouldBePs($price)
-    {
-        PHPUnit_Framework_Assert::assertSame(
-            floatval($price),
-            $this->basket->getTotalPrice()
-        );
+        $this->table=$table->;
+        
     }
 
+    /**
+     * @When I add a new one :arg1 to electronics
+     */
+    public function iAddANewOneToElectronics($arg1)
+    {
+        $this->table->addRow()
+    }
 
+    /**
+     * @Then I should have :arg1 more electronic in electronics
+     */
+    public function iShouldHaveMoreElectronicInElectronics($arg1)
+    {
+        throw new PendingException();
+    }
 }
