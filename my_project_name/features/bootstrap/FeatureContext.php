@@ -10,6 +10,7 @@ use Behat\Behat\Context\Context;
  */
 class FeatureContext implements Context
 {
+<<<<<<< HEAD
 
     /**
      * @Given I have the electronics:
@@ -51,4 +52,33 @@ class FeatureContext implements Context
         throw new PendingException();
     }
 
+=======
+    private $table;
+    private  $currentCount;
+
+    /**
+     * @Given there are electronics:
+     */
+    public function thereAreElectronics(TableNode $table)
+    {
+        $this->table=$table->;
+        
+    }
+
+    /**
+     * @When I add a new one :arg1 to electronics
+     */
+    public function iAddANewOneToElectronics($arg1)
+    {
+        $this->table->addRow()
+    }
+
+    /**
+     * @Then I should have :arg1 more electronic in electronics
+     */
+    public function iShouldHaveMoreElectronicInElectronics($arg1)
+    {
+        throw new PendingException();
+    }
+>>>>>>> 0c3df5406102d4009c6765f8ea2f4f4ce8be3134
 }
