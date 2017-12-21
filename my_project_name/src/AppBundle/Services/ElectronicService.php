@@ -38,7 +38,7 @@ class ElectronicService implements ElectronicServiceInterface
      * @param $id
      * @return Electronic
      */
-    public function getById($id)
+    public function getById( int $id)
     {
         return $this->repo->getById($id);
     }

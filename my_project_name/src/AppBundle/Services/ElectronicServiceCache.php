@@ -36,7 +36,7 @@ class ElectronicServiceCache implements ElectronicServiceInterface
             $items = $this->cache->getItem($filter);
             
             if (!$items->isHit()) {//if filter is not cached , cahce filter and objets that should be in it
-                echo "did not hit";
+
                 $keyArray = array();
                 $electronics = $this->service->getAll($filter);
                 foreach ($electronics as $electronic) { //add un-cached objects to cache
@@ -85,7 +85,7 @@ class ElectronicServiceCache implements ElectronicServiceInterface
      * @param $id
      * @return Electronic
      */
-    public function getById($id)
+    public function getById(int $id)
     {
         $electronic = $this->service->getById($id);
         $this->addElectronicToCahce($electronic);

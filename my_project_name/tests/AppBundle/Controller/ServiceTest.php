@@ -10,6 +10,7 @@ use AppBundle\Repository\ElectronicRepository;
 use AppBundle\Services\ElectronicService;
 
 
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ServiceTest extends \PHPUnit_Framework_TestCase
@@ -30,8 +31,9 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             null,
             'electronic should have values')
         );
+        $dispatcher = $this->createMock(EventDispatcher::class);
         
-        $this->service = new ElectronicService($repo, $validator);
+        $this->service = new ElectronicService($repo, $validator,$dispatcher);
         
     }
     

@@ -17,7 +17,7 @@ interface ElectronicServiceInterface
      * @param $id
      * @return Electronic
      */
-    public function getById($id);
+    public function getById(int $id);
 
     
     /**

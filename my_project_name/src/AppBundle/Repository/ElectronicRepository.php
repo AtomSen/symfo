@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 
 class ElectronicRepository implements Repository
 {
-    private $registry;
+    private $entityManager;
 
     /**
      * StudentRepo constructor.
@@ -18,7 +18,7 @@ class ElectronicRepository implements Repository
      */
     public function __construct(EntityManagerInterface $registry)
     {
-        $this->registry = $registry;
+        $this->entityManager = $registry;
     }
 
     /**
@@ -28,11 +28,11 @@ class ElectronicRepository implements Repository
     public function getAll($filter = null)
     {
         if ($filter === null) {
-            return $this->registry
+            return $this->entityManager
                 ->getRepository(Electronic::class)
                 ->findAll();
         } else {
-            $qb = $this->registry->createQueryBuilder();
+            $qb = $this->entityManager->createQueryBuilder();
             $qb->select(array('u'))
                 ->from(Electronic::class, 'u')
                 //->where($qb->expr()->like('u.brand', $qb->expr()->literal("%$filter%")));
@@ -48,8 +48,8 @@ class ElectronicRepository implements Repository
      */
     public function add($electronic)
     {
-        $this->registry->persist($electronic);
-        $this->registry->flush();
+        $this->entityManager->persist($electronic);
+        $this->entityManager->flush();
 
         return $electronic->getId();
     }
@@ -59,7 +59,7 @@ class ElectronicRepository implements Repository
      */
     public function delete($id)
     {
-        $qb = $this->registry->createQueryBuilder();
+        $qb = $this->entityManager->createQueryBuilder();
         $querry = $qb->delete(Electronic::class, 'u')
             ->where('u.id = :id')
             ->setParameter('id', $id);
@@ -84,16 +84,16 @@ class ElectronicRepository implements Repository
             if ($object->getPrice() !== null) {
                 $electronic->setPrice($object->getPrice());
             }
-            $this->registry->flush();
+            $this->entityManager->flush();
         } catch (ObjectNotFoundException $exception) {
 
             //insert with id if it does not exist
-            $this->registry->persist($object);
+            $this->entityManager->persist($object);
             //overwrites auto_increment
-            $metadata = $this->registry->getClassMetadata(get_class($object));
+            $metadata = $this->entityManager->getClassMetadata(get_class($object));
             $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
             $metadata->setIdGenerator(new AssignedGenerator());
-            $this->registry->flush();
+            $this->entityManager->flush();
         }
     }
 
@@ -103,7 +103,7 @@ class ElectronicRepository implements Repository
      */
     public function getById($id)
     {
-        $electronic = $this->registry
+        $electronic = $this->entityManager
             ->getRepository(Electronic::class)
             ->find($id);
         if ($electronic == null) {

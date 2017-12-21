@@ -51,11 +51,14 @@ class ElectronicController
             return $response;
         } else {*/
         $filter = $request->get('filter');
-        $response->setContent($this->serializer->serialize($this->service->
-        getAll($filter), 'json'));
-        $response->setStatusCode(Response::HTTP_OK);
-        $response->headers->set('Content-Type', 'application/json');
-
+        $items = $this->service->getAll($filter);
+        $response->setContent($this->serializer->serialize($items, 'json'));
+        if (count($items) > 0) {
+            $response->setStatusCode(Response::HTTP_OK);
+        } else {
+            $response->setStatusCode(Response::HTTP_NO_CONTENT);
+        }
+        $response->headers->set('content-type', 'application/json', true);
         return $response;
         // }
     }
@@ -69,10 +72,10 @@ class ElectronicController
     {
 
         try {
-            $obj = $this->service->getById($id);// $this->service->getById($id);
+            $obj = $this->service->getById($id);
             $JsonObject = $this->serializer->serialize($obj, 'json');
             $response = new Response($JsonObject, Response::HTTP_OK);
-            $response->headers->set('Content-Type', 'application/json');
+            $response->headers->set('content-type', 'application/json');
 
             return $response;
         } catch (ObjectNotFoundException $exception) {
