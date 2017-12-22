@@ -16,10 +16,11 @@ class FeatureContext implements Context
     private $count;
     private $client;
     private $electronic;
+    private $toDelete;
 
     public function __construct()
     {
-        $this->client = new GuzzleHttp\Client();
+        $this->client = new GuzzleHttp\Client(['http_errors' => false]);
     }
 
     /**
@@ -33,11 +34,22 @@ class FeatureContext implements Context
 
     /**
      * @Given want to add :
+     * @param PyStringNode $string
      */
     public function wantToAdd(PyStringNode $string)
     {
         $this->electronic = $string;
     }
+
+    /**
+     * @Then Want to update with:
+     * @param PyStringNode $string
+     */
+    public function wantToUpdateWith(PyStringNode $string)
+    {
+        $this->electronic = $string;;
+    }
+
 
 
     /**
@@ -47,12 +59,25 @@ class FeatureContext implements Context
      */
     public function iRequest($httpMethod, $resource)
     {
-        if (isset($this->electronic)) {
+        switch ($httpMethod) {
+            case "POST":
 
-            $this->response = $this->client->post('http://localhost:8000' . $resource,['body'=> $this->electronic]);
+                $this->response = $this->client->post('http://localhost:8000' . $resource,
+                    ['body' => $this->electronic]);
+                $this->toDelete = $this->response->getHeader('Location')[0] ?? false;
+                break;
+            case "DELETE":
 
-        } else {
-            $this->response = $this->client->request($httpMethod, 'http://localhost:8000' . $resource);
+                $this->response = $this->client->delete($this->toDelete);
+                break;
+            case "PUT":
+
+                $this->response = $this->client->put($this->toDelete,
+                    ['body' => $this->electronic]);
+                break;
+            case "GET":
+                $this->response = $this->client->request($httpMethod, 'http://localhost:8000' . $resource);
+                break;
         }
     }
 
@@ -103,10 +128,36 @@ class FeatureContext implements Context
      */
     public function iShouldHaveOneMoreElectronic()
     {
+        $this->count++;
         $response = $this->client->request("GET", 'http://localhost:8000/electronics');
         $count = count(json_decode($response->getBody()->getContents()));
         PHPUnit_Framework_Assert::assertEquals(
-            $this->count + 1, $count
+            $this->count, $count
+        );
+    }
+
+
+    /**
+     * @Then And I should have one less electronic
+     */
+    public function andIShouldHaveOneLessElectronic()
+    {
+        $this->count--;
+        $response = $this->client->request("GET", 'http://localhost:8000/electronics');
+        $count = count(json_decode($response->getBody()->getContents()));
+        PHPUnit_Framework_Assert::assertEquals(
+            $this->count, $count
+        );
+    }
+    /**
+     * @Then And I should have same number of electronics
+     */
+    public function andIShouldHaveSameNumberOfElectronics()
+    {
+        $response = $this->client->request("GET", 'http://localhost:8000/electronics');
+        $count = count(json_decode($response->getBody()->getContents()));
+        PHPUnit_Framework_Assert::assertEquals(
+            $this->count, $count
         );
     }
 

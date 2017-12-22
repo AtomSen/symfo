@@ -5,8 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Electronic;
 use AppBundle\Exceptions\ObjectNotValidException;
 use AppBundle\Exceptions\ObjectNotFoundException;
-
-use AppBundle\Services\ElectronicService;
 use AppBundle\Services\ElectronicServiceCache;
 use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 use Symfony\Component\Cache\Simple\FilesystemCache;

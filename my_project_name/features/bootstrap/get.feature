@@ -22,4 +22,7 @@ Feature: GetElectronics
     """
     {"id":1,"brand":"Samsung","model":"cel mai  nou","price":22222}
     """
+  Scenario:
+    When I request "GET /electronics/12345"
+    Then the response status code should be 404
 
