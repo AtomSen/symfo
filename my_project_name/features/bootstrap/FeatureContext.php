@@ -16,7 +16,7 @@ class FeatureContext implements Context
     private $count;
     private $client;
     private $electronic;
-    private $toDelete;
+    private $location;
 
     public function __construct()
     {
@@ -51,7 +51,6 @@ class FeatureContext implements Context
     }
 
 
-
     /**
      * @When /^I request "(GET|PUT|POST|DELETE|PATCH) ([^"]*)"$/
      * @param $httpMethod
@@ -64,15 +63,15 @@ class FeatureContext implements Context
 
                 $this->response = $this->client->post('http://localhost:8000' . $resource,
                     ['body' => $this->electronic]);
-                $this->toDelete = $this->response->getHeader('Location')[0] ?? false;
+                $this->location = $this->response->getHeader('Location')[0] ?? false;
                 break;
             case "DELETE":
 
-                $this->response = $this->client->delete($this->toDelete);
+                $this->response = $this->client->delete($this->location);
                 break;
             case "PUT":
 
-                $this->response = $this->client->put($this->toDelete,
+                $this->response = $this->client->put($this->location,
                     ['body' => $this->electronic]);
                 break;
             case "GET":
@@ -95,19 +94,24 @@ class FeatureContext implements Context
 
     /**
      * @Then the :contentType header should be :actualType
-     * @param $contentType
-     * @param $actualType
+     * @param $header
+     * @param $headerValue
      */
-    public function theHeaderShouldBe($contentType, $actualType)
+    public function theHeaderShouldBe($header, $headerValue = null)
     {
         PHPUnit_Framework_Assert::assertEquals(
-            true, count($this->response->getHeaders()[$contentType]) != 0 ? true : false
+            true, count($this->response->getHeaders()[$header]) != 0 ? true : false
 
         );
-        PHPUnit_Framework_Assert::assertEquals(
-            $actualType, $actualType, $this->response->getHeader($contentType)
-        );
-
+        if ($header === "Location") {
+            PHPUnit_Framework_Assert::assertEquals(
+                $this->location, $this->response->getHeader($header)[0]
+            );
+        } else {
+            PHPUnit_Framework_Assert::assertEquals(
+                $headerValue, $this->response->getHeader($header)[0]
+            );
+        }
     }
 
     /**
@@ -149,6 +153,7 @@ class FeatureContext implements Context
             $this->count, $count
         );
     }
+
     /**
      * @Then And I should have same number of electronics
      */

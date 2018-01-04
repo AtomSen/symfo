@@ -7,6 +7,7 @@ Feature:add an electronic
     """
     When I request "POST /electronics"
     Then the response status code should be 201
+    And the "Location" header should be "a number"
     And I should have one more electronic
     When  I request "DELETE /electronic/"
     Then the response status code should be 204
