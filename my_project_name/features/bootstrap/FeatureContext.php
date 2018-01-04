@@ -2,6 +2,7 @@
 
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Behat\Context\Context;
+use Doctrine\ORM\EntityManagerInterface;
 
 
 /**
@@ -163,6 +164,17 @@ class FeatureContext implements Context
         $count = count(json_decode($response->getBody()->getContents()));
         PHPUnit_Framework_Assert::assertEquals(
             $this->count, $count
+        );
+    }
+
+    /**
+     * @Given /^the response message should be "([^"]*)"$/
+     */
+    public function theResponseMessageShouldBe($message)
+    {
+        echo $this->response->getBody()->getContents();
+        PHPUnit_Framework_Assert::assertEquals(
+            json_decode($this->response->getBody()->getContents()), json_decode($message)
         );
     }
 

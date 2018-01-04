@@ -48,14 +48,14 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             )
             ->willReturnOnConsecutiveCalls(
                 10,
-                $this->throwException(new ObjectNotValidException('nu e valid'))
+                $this->throwException(new ObjectNotValidException('Not Valid!'))
             );
         
         
         $this->assertEquals(10,
             $this->service->addElectronic(new Electronic(10, "ss", "sda", 234)));
-        $this->assertEquals(12,
-            $this->service->addElectronic(new Electronic()));
+
+        $this->service->addElectronic(new Electronic());
         
         
     }
@@ -68,7 +68,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             ->method('getById')
             ->willReturnOnConsecutiveCalls(
                 new Electronic(11, '11', '11', 11),
-                $this->throwException(new ObjectNotFoundException('nu e valid'))
+                $this->throwException(new ObjectNotFoundException('Not Valid'))
             );
         
         $this->assertEquals(new Electronic(11, '11', '11', 11), $this->service->getById(11));

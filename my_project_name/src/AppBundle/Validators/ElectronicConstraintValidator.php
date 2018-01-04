@@ -16,10 +16,10 @@ class ElectronicConstraintValidator extends ConstraintValidator
 {
     public function validate($electronic, Constraint $constraint)
     {
-        /*if (empty($electronic->getPrice())||empty($electronic->getBrand())||empty($electronic->getModel())) {
+        if (empty($electronic->getPrice())||empty($electronic->getBrand())||empty($electronic->getModel())) {
             $this->context->buildViolation('All fields must have a value!')
                 ->addViolation();
-        }*/
+        }
         if (!is_numeric($electronic->getPrice())) {
             $this->context->buildViolation('Price should be numeric!')
                 ->addViolation();

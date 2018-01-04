@@ -25,4 +25,5 @@ Feature: GetElectronics
   Scenario:
     When I request "GET /electronics/12345"
     Then the response status code should be 404
+    And the response message should be "Object does not exists!"
 

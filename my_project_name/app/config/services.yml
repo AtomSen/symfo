@@ -41,8 +41,8 @@ services:
         public: true
 
     ElectronicService:
-            class: AppBundle\Services\ElectronicService
-            public: true
+        class: AppBundle\Services\ElectronicService
+        public: true
 
     ElectronicRepository:
         class: AppBundle\Repository\ElectronicRepository
