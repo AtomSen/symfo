@@ -69,10 +69,10 @@ class ElectronicService implements ElectronicServiceInterface
         } else {
             
             
-            /*$this->eventDispatcher->dispatch(
+            $this->eventDispatcher->dispatch(
                 ElectronicAddedEvent::NAME,
                 new ElectronicAddedEvent($electronic)
-            );*/
+            );
             
             return $this->repo->add($electronic);
             

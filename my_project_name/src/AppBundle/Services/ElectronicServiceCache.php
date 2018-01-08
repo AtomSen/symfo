@@ -12,7 +12,6 @@ namespace AppBundle\Services;
 use AppBundle\Entity\Electronic;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\RedisAdapter;
-use Symfony\Component\Config\Definition\Exception\Exception;
 
 
 class ElectronicServiceCache implements ElectronicServiceInterface
@@ -29,7 +28,7 @@ class ElectronicServiceCache implements ElectronicServiceInterface
         $this->service = $service;
         //$cache = new FilesystemAdapter('Electronics');
         $cache = new RedisAdapter($client,'Electronics');
-        $cache->clear();
+        //$cache->clear();
 
         $this->cache = $cache;
     }
