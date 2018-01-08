@@ -44,7 +44,7 @@ services:
         class: AppBundle\Services\ElectronicService
         public: true
 
-    ElectronicRepository:
+    AppBundle\Repository\Repository:
         class: AppBundle\Repository\ElectronicRepository
         public: true
 
@@ -54,6 +54,7 @@ services:
         class: EmailBundle\EventSubscriber\ElectronicSubscriber
         tags:
             - { name: kernel.event_subscriber }
+
 
 
 

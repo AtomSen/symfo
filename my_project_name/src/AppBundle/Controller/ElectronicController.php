@@ -10,7 +10,7 @@ use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 use Symfony\Component\Cache\Simple\FilesystemCache;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 
 class ElectronicController
@@ -22,9 +22,9 @@ class ElectronicController
     /**
      * ElectronicController constructor.
      * @param ElectronicServiceCache $service
-     * @param Serializer $serializer
+     * @param SerializerInterface $serializer
      */
-    public function __construct(ElectronicServiceCache $service, Serializer $serializer)
+    public function __construct(ElectronicServiceCache $service, SerializerInterface $serializer)
     {
         $this->cache = new FilesystemCache("Electronic");
         $this->service = $service;

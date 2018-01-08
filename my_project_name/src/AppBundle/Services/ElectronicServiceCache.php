@@ -11,6 +11,9 @@ namespace AppBundle\Services;
 
 use AppBundle\Entity\Electronic;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Adapter\RedisAdapter;
+use Symfony\Component\Config\Definition\Exception\Exception;
+
 
 class ElectronicServiceCache implements ElectronicServiceInterface
 {
@@ -20,11 +23,14 @@ class ElectronicServiceCache implements ElectronicServiceInterface
     
     public function __construct(ElectronicService $service)
     {
-        
+        $client = RedisAdapter::createConnection(
+            'redis://redis'
+        );
         $this->service = $service;
-        $cache = new FilesystemAdapter('Electronics');
-        //$cache->clear();
-        
+        //$cache = new FilesystemAdapter('Electronics');
+        $cache = new RedisAdapter($client,'Electronics');
+        $cache->clear();
+
         $this->cache = $cache;
     }
     
@@ -34,9 +40,8 @@ class ElectronicServiceCache implements ElectronicServiceInterface
         if ($filter !== null) {
             
             $items = $this->cache->getItem($filter);
-            
-            if (!$items->isHit()) {//if filter is not cached , cahce filter and objets that should be in it
 
+            if (!$items->isHit()) {//if filter is not cached , cahce filter and objets that should be in it
                 $keyArray = array();
                 $electronics = $this->service->getAll($filter);
                 foreach ($electronics as $electronic) { //add un-cached objects to cache
@@ -63,7 +68,7 @@ class ElectronicServiceCache implements ElectronicServiceInterface
             return $data;
             
         } else {
-            
+
             return $this->service->getAll($filter);
         }
     }

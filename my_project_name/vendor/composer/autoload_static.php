@@ -12,110 +12,38 @@ class ComposerStaticInit374429f4ab4935127e2d36a0613c8d3a
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
-        '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
-        'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
-        '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
-        '32dcc8afd4335739640db7d200c1971d' => __DIR__ . '/..' . '/symfony/polyfill-apcu/bootstrap.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '32dcc8afd4335739640db7d200c1971d' => __DIR__ . '/..' . '/symfony/polyfill-apcu/bootstrap.php',
+        '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
+        'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
+        '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'f2656ad9540456d3b987bec8cd96d395' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php',
     );
 
-    public static $prefixLengthsPsr4 = array (
-        'p' => 
-        array (
-            'phpDocumentor\\Reflection\\' => 25,
-        ),
-        'W' => 
-        array (
-            'Webmozart\\Assert\\' => 17,
-        ),
-        'T' => 
-        array (
-            'Twig\\' => 5,
-            'Tests\\' => 6,
-        ),
-        'S' => 
-        array (
-            'Symfony\\Polyfill\\Util\\' => 22,
-            'Symfony\\Polyfill\\Php70\\' => 23,
-            'Symfony\\Polyfill\\Php56\\' => 23,
-            'Symfony\\Polyfill\\Mbstring\\' => 26,
-            'Symfony\\Polyfill\\Apcu\\' => 22,
-            'Symfony\\Component\\' => 18,
-            'Symfony\\Bundle\\SwiftmailerBundle\\' => 33,
-            'Symfony\\Bundle\\MonologBundle\\' => 29,
-            'Symfony\\Bundle\\' => 15,
-            'Symfony\\Bridge\\Twig\\' => 20,
-            'Symfony\\Bridge\\ProxyManager\\' => 28,
-            'Symfony\\Bridge\\PhpUnit\\' => 23,
-            'Symfony\\Bridge\\Monolog\\' => 23,
-            'Symfony\\Bridge\\Doctrine\\' => 24,
-            'Sensio\\Bundle\\GeneratorBundle\\' => 30,
-            'Sensio\\Bundle\\FrameworkExtraBundle\\' => 35,
-            'Sensio\\Bundle\\DistributionBundle\\' => 33,
-        ),
-        'P' => 
-        array (
-            'Psr\\SimpleCache\\' => 16,
-            'Psr\\Log\\' => 8,
-            'Psr\\Link\\' => 9,
-            'Psr\\Http\\Message\\' => 17,
-            'Psr\\Container\\' => 14,
-            'Psr\\Cache\\' => 10,
-        ),
-        'M' => 
-        array (
-            'Monolog\\' => 8,
-        ),
-        'I' => 
-        array (
-            'Interop\\Container\\' => 18,
-            'Incenteev\\ParameterHandler\\' => 27,
-        ),
-        'G' => 
-        array (
-            'GuzzleHttp\\Psr7\\' => 16,
-            'GuzzleHttp\\Promise\\' => 19,
-            'GuzzleHttp\\' => 11,
-        ),
-        'F' => 
-        array (
-            'Fig\\Link\\' => 9,
-        ),
-        'E' => 
-        array (
-            'EmailBundle\\' => 12,
-        ),
-        'D' => 
-        array (
-            'Doctrine\\ORM\\' => 13,
-            'Doctrine\\Instantiator\\' => 22,
-            'Doctrine\\Common\\Inflector\\' => 26,
-            'Doctrine\\Common\\Cache\\' => 22,
-            'Doctrine\\Common\\Annotations\\' => 28,
-            'Doctrine\\Common\\' => 16,
-            'Doctrine\\Bundle\\DoctrineCacheBundle\\' => 36,
-            'Doctrine\\Bundle\\DoctrineBundle\\' => 31,
-            'DeepCopy\\' => 9,
-        ),
-        'C' => 
-        array (
-            'Composer\\CaBundle\\' => 18,
-        ),
-        'A' => 
-        array (
-            'AppBundle\\' => 10,
-        ),
+    public static $firstCharsPsr4 = array (
+        'p' => true,
+        'W' => true,
+        'T' => true,
+        'S' => true,
+        'P' => true,
+        'M' => true,
+        'I' => true,
+        'G' => true,
+        'F' => true,
+        'E' => true,
+        'D' => true,
+        'C' => true,
+        'A' => true,
     );
 
     public static $prefixDirsPsr4 = array (
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -185,6 +113,10 @@ class ComposerStaticInit374429f4ab4935127e2d36a0613c8d3a
         array (
             0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bridge/Doctrine',
         ),
+        'Snc\\RedisBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/snc/redis-bundle',
+        ),
         'Sensio\\Bundle\\GeneratorBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/sensio/generator-bundle',
@@ -220,6 +152,10 @@ class ComposerStaticInit374429f4ab4935127e2d36a0613c8d3a
         'Psr\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
+        'Predis\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/predis/predis/src',
         ),
         'Monolog\\' => 
         array (
@@ -839,7 +775,7 @@ class ComposerStaticInit374429f4ab4935127e2d36a0613c8d3a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit374429f4ab4935127e2d36a0613c8d3a::$prefixLengthsPsr4;
+            $loader->firstCharsPsr4 = ComposerStaticInit374429f4ab4935127e2d36a0613c8d3a::$firstCharsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit374429f4ab4935127e2d36a0613c8d3a::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit374429f4ab4935127e2d36a0613c8d3a::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit374429f4ab4935127e2d36a0613c8d3a::$classMap;

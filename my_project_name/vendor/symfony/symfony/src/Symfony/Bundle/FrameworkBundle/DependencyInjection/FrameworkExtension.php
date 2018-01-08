@@ -12,6 +12,7 @@
 namespace Symfony\Bundle\FrameworkBundle\DependencyInjection;
 
 use Doctrine\Common\Annotations\Reader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use Symfony\Bridge\Monolog\Processor\DebugProcessor;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -361,6 +362,8 @@ class FrameworkExtension extends Extension
     private function registerEsiConfiguration(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
         if (!$this->isConfigEnabled($container, $config)) {
+            $container->removeDefinition('fragment.renderer.esi');
+
             return;
         }
 
@@ -370,6 +373,8 @@ class FrameworkExtension extends Extension
     private function registerSsiConfiguration(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
         if (!$this->isConfigEnabled($container, $config)) {
+            $container->removeDefinition('fragment.renderer.ssi');
+
             return;
         }
 
@@ -1087,6 +1092,11 @@ class FrameworkExtension extends Extension
 
         $loader->load('annotations.xml');
 
+        if (!method_exists(AnnotationRegistry::class, 'registerUniqueLoader')) {
+            $container->getDefinition('annotations.dummy_registry')
+                ->setMethodCalls(array(array('registerLoader', array('class_exists'))));
+        }
+
         if ('none' !== $config['cache']) {
             $cacheService = $config['cache'];
 
@@ -1152,7 +1162,7 @@ class FrameworkExtension extends Extension
         }
 
         if (!class_exists('Symfony\Component\Security\Csrf\CsrfToken')) {
-            throw new LogicException('CSRF support cannot be enabled as the Security CSRF component is not installed.');
+            throw new LogicException('CSRF support cannot be enabled as the Security CSRF component is not installed. Try running "composer require security-csrf".');
         }
 
         if (!$this->sessionConfigEnabled) {

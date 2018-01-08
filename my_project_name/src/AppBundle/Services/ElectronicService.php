@@ -7,6 +7,7 @@ use AppBundle\Exceptions\ObjectNotValidException;
 use AppBundle\Repository\Repository;
 use EmailBundle\Events\ElectronicAddedEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
@@ -16,18 +17,18 @@ class ElectronicService implements ElectronicServiceInterface
     private $repo;
     private $validator;
     private $eventDispatcher;
-    
-    
+
+
     /**
      * ElectronicService constructor.
      * @param Repository $repo
      * @param ValidatorInterface $validator
-     * @param EventDispatcher $eventDispatcher
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         Repository $repo,
         ValidatorInterface $validator,
-        EventDispatcher $eventDispatcher
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->validator = $validator;

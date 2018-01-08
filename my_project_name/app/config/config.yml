@@ -33,6 +33,13 @@ framework:
     assets: ~
     php_errors:
         log: true
+snc_redis:
+    clients:
+        default:
+            type: predis
+            alias: default
+            dsn: 'redis://%redis.host%'
+
 
 # Twig Configuration
 twig:
